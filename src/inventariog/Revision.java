@@ -50,7 +50,7 @@ public class Revision extends javax.swing.JFrame {
         lblMostrarArt = new javax.swing.JLabel();
         lblMostrarDesc = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnSiguiente = new javax.swing.JButton();
         tfCantidad = new javax.swing.JTextField();
         lblCantidad = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JButton();
@@ -76,10 +76,10 @@ public class Revision extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Siguiente");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnSiguiente.setText("Siguiente");
+        btnSiguiente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnSiguienteActionPerformed(evt);
             }
         });
 
@@ -138,7 +138,7 @@ public class Revision extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(161, 161, 161)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton2)
+                    .addComponent(btnSiguiente)
                     .addComponent(jButton1))
                 .addGap(63, 63, 63)
                 .addComponent(btnGuardar)
@@ -169,7 +169,7 @@ public class Revision extends javax.swing.JFrame {
                     .addComponent(btnGuardar)
                     .addComponent(btnEditar))
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(btnSiguiente)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(btnReporteR)
                 .addGap(44, 44, 44))
@@ -259,31 +259,36 @@ public class Revision extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
+        btnGuardar.setEnabled(true);
         if(i < indices.size()){
             editarPosicion = indices.get(i);
             lblMostrarArt.setText(contadosRevision.get(indices.get(i)).getCodigo());
             lblMostrarDesc.setText(contadosRevision.get(indices.get(i)).getDescripcion());
             tfSistema.setText(String.valueOf(listaBase.get(indices.get(i)).getCantidad()));
             tfCantidad.setText(String.valueOf(contadosRevision.get(indices.get(i)).getCantidad()));
-            System.out.println("vv" + contadosRevision.get(indices.get(i)).getCantidad());
+            System.out.println("CANTIDAD EN REVISION" + contadosRevision.get(indices.get(i)).getCantidad());
             i++; 
         }else{
+            btnGuardar.setEnabled(false);
             JOptionPane.showMessageDialog(null, "Revisión terminada");
         }
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnSiguienteActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         System.out.println("antes"+ contadosRevision.get(editarPosicion).getCantidad());
         contadosRevision.get(editarPosicion).setCantidad(Integer.parseInt(tfCantidad.getText()));
         System.out.println("despues"+ contadosRevision.get(editarPosicion).getCantidad());
         tfCantidad.setEnabled(false);
-        sinDiferencia.add(new Articulo(contadosRevision.get(editarPosicion).getCodigo(),
-                                        contadosRevision.get(editarPosicion).getDescripcion(),
-                                        contadosRevision.get(editarPosicion).getCantidad(),
-                                        contadosRevision.get(editarPosicion).getLote(),
-                                        contadosRevision.get(editarPosicion).getEan()));
+        btnGuardar.setEnabled(false);
+        if(!(contadosRevision.get(editarPosicion).getCantidad() == listaBase.get(editarPosicion).getCantidad())){
+            sinDiferencia.add(new Articulo(contadosRevision.get(editarPosicion).getCodigo(), 
+                                          contadosRevision.get(editarPosicion).getDescripcion(), 
+                                            contadosRevision.get(editarPosicion).getCantidad(),
+                                            contadosRevision.get(editarPosicion).getLote(), 
+                                            contadosRevision.get(editarPosicion).getEan()));
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -310,8 +315,8 @@ public class Revision extends javax.swing.JFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnReporteR;
+    private javax.swing.JButton btnSiguiente;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel lblArticulo;
     private javax.swing.JLabel lblCantidad;
     private javax.swing.JLabel lblMostrarArt;
