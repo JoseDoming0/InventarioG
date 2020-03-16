@@ -28,6 +28,7 @@ public class Revision extends javax.swing.JFrame {
     private ArrayList<Articulo> sinDiferencia = new ArrayList<>();
     int i = 0;
     int editarPosicion = 0;
+    String ruta = "";
 
     /**
      * Creates new form Revision
@@ -178,11 +179,12 @@ public class Revision extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void obtenerListas(ArrayList<Integer> indices, ArrayList<Articulo> contadosRevision, ArrayList<Articulo> base){
+    public void obtenerListas(ArrayList<Integer> indices, ArrayList<Articulo> contadosRevision, ArrayList<Articulo> base, String ruta){
         this.indices = indices;
         System.out.println("ind"+indices.size());
         this.contadosRevision = contadosRevision;
         this.listaBase = base;
+        this.ruta = ruta;
         System.out.println("cont" + contadosRevision.size());
     }
     
@@ -215,9 +217,10 @@ public class Revision extends javax.swing.JFrame {
         marca = JOptionPane.showInputDialog("Marca:");
         String archivo = "Reporte revision " + marca;
         System.out.println("Reporte creado");
-        FileOutputStream fileOut = new FileOutputStream(archivo + ".xls");
+        FileOutputStream fileOut = new FileOutputStream(ruta+archivo + ".xls");
         wb.write(fileOut);
         fileOut.close();
+        JOptionPane.showMessageDialog(null, "Se ha creado el reporte", "Reporte Final", JOptionPane.INFORMATION_MESSAGE);
     }
     
     public void reporteRevisionSoloDiferencias() throws  IOException{
@@ -249,9 +252,10 @@ public class Revision extends javax.swing.JFrame {
         marca = JOptionPane.showInputDialog("Marca:");
         String archivo = "Reporte importacion " + marca;
         System.out.println("Reporte creado");
-        FileOutputStream fileOut = new FileOutputStream(archivo + ".xls");
+        FileOutputStream fileOut = new FileOutputStream(ruta+archivo + ".xls");
         wb.write(fileOut);
         fileOut.close();
+        JOptionPane.showMessageDialog(null, "Se ha creado el reporte", "Reporte Final", JOptionPane.INFORMATION_MESSAGE);
     }
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

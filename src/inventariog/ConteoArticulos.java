@@ -32,6 +32,7 @@ public class ConteoArticulos extends javax.swing.JFrame {
 
     public ConteoArticulos() {
         initComponents();
+        op.crearDirectorio();
     }
 
     public void llenarTable() {
@@ -413,7 +414,7 @@ public class ConteoArticulos extends javax.swing.JFrame {
     private void menuRevinvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRevinvActionPerformed
         // TODO add your handling code here:
        r.setVisible(true);
-       r.obtenerListas(op.getIndicesRevision(), op.getListaContados(), op.getListaBase());
+       r.obtenerListas(op.getIndicesRevision(), op.getListaContados(), op.getListaBase(), op.getRuta());
     }//GEN-LAST:event_menuRevinvActionPerformed
 
     /**

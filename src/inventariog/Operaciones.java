@@ -16,6 +16,7 @@ import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -46,6 +47,7 @@ public class Operaciones {
     private String ean, codigo, desripcion, zona;
     private ArrayList<ArticuloContado> nuevaLista = new ArrayList<>();
     private int contadorZona = 0;
+    private String ruta = "";
     
     private ArrayList<Integer> indicesRevision = new ArrayList<>();
 
@@ -156,7 +158,7 @@ public class Operaciones {
             row.createCell(4).setCellValue(nuevaLista.get(i).getZona());
         }
         String archivo = "Reporte de Conteo " + JOptionPane.showInputDialog("Marca: ");
-        FileOutputStream fileOut = new FileOutputStream(archivo + ".xls");
+        FileOutputStream fileOut = new FileOutputStream(ruta+archivo + ".xls");
         wb.write(fileOut);
         fileOut.close();
         JOptionPane.showMessageDialog(null, "Reporte creado");
@@ -207,9 +209,10 @@ public class Operaciones {
         marca = JOptionPane.showInputDialog("Marca:");
         String archivo = "Reporte de Inventario " + marca;
         System.out.println("Reporte creado");
-        FileOutputStream fileOut = new FileOutputStream(archivo + ".xls");
+        FileOutputStream fileOut = new FileOutputStream(ruta+archivo + ".xls");
         wb.write(fileOut);
         fileOut.close();
+        JOptionPane.showMessageDialog(null, "Se ha creado el reporte", "Reporte Final", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void generarReportePdf() throws FileNotFoundException, DocumentException {
@@ -270,6 +273,19 @@ public class Operaciones {
         documento.close();
         JOptionPane.showMessageDialog(null, "Se ha creado el reporte", "Reporte Final", JOptionPane.INFORMATION_MESSAGE);
     }
+    
+    public void crearDirectorio(){
+        String tienda = JOptionPane.showInputDialog(null, "Introduce nombre de tienda");
+        ruta = "C:\\Users\\Dulce\\Desktop\\"+tienda+"\\";
+        File carpeta = new File(ruta); 
+        if(!carpeta.exists()){
+            if(carpeta.mkdir()){
+                JOptionPane.showMessageDialog(null, "Directorio creado");
+            }else{
+                JOptionPane.showMessageDialog(null, "Error al crear directorio");
+            }
+        }
+}
 
     public ArrayList<String> getAgregaContado() {
         return agregaContado;
@@ -327,4 +343,11 @@ public class Operaciones {
         this.listaBase = listaBase;
     }
 
+    public String getRuta() {
+        return ruta;
+    }
+
+    public void setRuta(String ruta) {
+        this.ruta = ruta;
+    }
 }
